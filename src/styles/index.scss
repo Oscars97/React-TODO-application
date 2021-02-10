@@ -13,15 +13,31 @@
 */
 
 body{
-    background-color: rgb(221, 210, 210);
+    background-color: rgb(233, 230, 230);
 
 }
 
 h1{
-   color: pink; 
+   color: rgb(212, 184, 189); 
    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 list-group{
     background-color: whitesmoke;
+}
+.task{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+li:hover{
+    background-color: rgb(238, 204, 204);
+color: white;
+}
+
+ul:after{
+    content:"";
+    width: 100%;
+    height: 5px;
+    border-bottom: solid 1px rgb(192, 192, 192);
 }

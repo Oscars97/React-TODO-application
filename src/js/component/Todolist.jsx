@@ -5,9 +5,9 @@ const Todolist = () => {
 	let [listaTareas, setListaTareas] = useState([]);
 	let restantes;
 	if (listaTareas.length === 0) {
-		restantes = "Agrega una tarea";
+		restantes = "Add a to-do";
 	} else {
-		restantes = "Quedan " + listaTareas.length + " tareas restantes";
+		restantes = "You have " + listaTareas.length + " to-dos remaining";
 	}
 	const obtenerValor = e => {
 		if (e.key.toLowerCase() === "enter") {
@@ -45,23 +45,23 @@ const Todolist = () => {
 			<ul className="list-group d-flex">
 				{listaTareas.map(item => (
 					<li className="list-group-item" key={item.id}>
-						<span className="lead">{item.nombreTarea}</span>
-						<button
-							className="btn btn-danger"
-							type="button"
-							onClick={() => handleRemove(item.id)}>
-							<i className="far fa-trash-alt"></i>
-						</button>
+						<div className="task">
+							<div className>
+								<span className="lead">{item.nombreTarea}</span>
+							</div>
+							<div>
+								<button
+									className="btn btn-danger"
+									type="button"
+									onClick={() => handleRemove(item.id)}>
+									<i className="far fa-trash-alt"></i>
+								</button>
+							</div>
+						</div>
 					</li>
 				))}
-
-				<li className="list-group-item"></li>
-				<li className="list-group-item"></li>
-				<li className="list-group-item"></li>
-				<li className="list-group-item"></li>
-				<li className="list-group-item"></li>
 			</ul>
-			<p>{restantes}</p>
+			<strong>{restantes}</strong>
 		</div>
 	);
 };
