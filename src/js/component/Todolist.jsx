@@ -1,14 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import shortid from "shortid";
 const Todolist = () => {
 	let [tarea, setTarea] = useState("");
 	let [listaTareas, setListaTareas] = useState([]);
 	let restantes;
-	if (listaTareas.length === 0) {
-		restantes = "Add a to-do";
-	} else {
-		restantes = "You have " + listaTareas.length + " to-dos remaining";
-	}
+
+	useEffect(() => {
+		fetch("https://assets.breatheco.de/apis/fake/todos/user/oscars97", {
+			method: "PUT",
+			body: JSON.stringify(listaTareas),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
+			})
+			.then(data => {
+				console.log(data);
+			})
+			.catch(error => {
+				//error handling
+				console.log(error);
+			});
+	});
 	const obtenerValor = e => {
 		if (e.key.toLowerCase() === "enter") {
 			let valor = e.target.value;
