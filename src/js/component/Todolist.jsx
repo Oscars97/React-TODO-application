@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from "react";
 import shortid from "shortid";
 const Todolist = () => {
-	let [tarea, setTarea] = useState("");
+	let [tarea, setTarea] = useState({
+		label: "",
+		done: false
+	});
 	let [listaTareas, setListaTareas] = useState([]);
 	let restantes;
-
+	if (listaTareas.length === 0) {
+		restantes = "Add a todo";
+	} else {
+		restantes = `We are missing ${listaTareas.length} tasks`;
+	}
 	useEffect(() => {
 		fetch("https://assets.breatheco.de/apis/fake/todos/user/oscars97", {
 			method: "PUT",
@@ -27,20 +34,20 @@ const Todolist = () => {
 	const obtenerValor = e => {
 		if (e.key.toLowerCase() === "enter") {
 			let valor = e.target.value;
-			setTarea((tarea = valor));
-			setListaTareas([
-				...listaTareas,
-				{
-					id: shortid.generate(),
-					nombreTarea: tarea
-				}
-			]);
+			console.log(valor);
+			setTarea(
+				(tarea = {
+					label: valor,
+					done: false,
+					id: shortid.generate()
+				})
+			);
+			setListaTareas([...listaTareas, tarea]);
 		}
 		setTarea("");
 	};
 	function handleRemove(id) {
 		const newList = listaTareas.filter(item => item.id !== id);
-
 		setListaTareas(newList);
 	}
 	return (
@@ -58,11 +65,11 @@ const Todolist = () => {
 			</div>
 
 			<ul className="list-group d-flex">
-				{listaTareas.map(item => (
+				{listaTareas.map((item, i) => (
 					<li className="list-group-item" key={item.id}>
 						<div className="task">
 							<div className>
-								<span className="lead">{item.nombreTarea}</span>
+								<span className="lead">{item.label}</span>
 							</div>
 							<div>
 								<button
